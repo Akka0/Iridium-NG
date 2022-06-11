@@ -1,0 +1,7 @@
+{
+  "deviceName" : "",
+  "packetFilter" : [
+    ""
+  ],
+  "autoSavePcapFiles" : true
+}

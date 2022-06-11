@@ -1,0 +1,44 @@
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+        cache: true
+        
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.3.0
+      with:
+        node-version: 16.x
+        cache: npm
+        cache-dependency-path: ./frontend/package-lock.json
+      
+    - name: Build Frontend
+      run: cd frontend && npm i && npm run build
+      
+    - name: Set up libpcap
+      run: sudo apt-get install -y libpcap-dev
+      
+    - name: Build
+      run: make pre-build && make build-win && make build-linux
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: IridiumNG
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ./build

@@ -1,0 +1,6 @@
+/build
+/vendor
+
+/data
+
+.DS_Store
