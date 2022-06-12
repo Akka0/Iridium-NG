@@ -67,9 +67,9 @@ func openCapture() {
 	}
 
 	if config.AutoSavePcapFiles {
-		pcapFile, err = os.Create(time.Now().Format("2006-01-02 15:04:05") + ".pcapng")
+		pcapFile, err = os.Create(time.Now().Format("06-01-02 15.04.05") + ".pcapng")
 		if err != nil {
-			log.Println("Could create pcapng file")
+			log.Println("Could not create pcapng file", err)
 		}
 		defer pcapFile.Close()
 	}
@@ -126,7 +126,7 @@ func startSniffer() {
 	if pcapFile != nil {
 		pcapWriter, err = pcapgo.NewNgWriter(pcapFile, captureHandler.LinkType())
 		if err != nil {
-			log.Println("Could create pcapng file")
+			log.Println("Could not create pcapng writer", err)
 		}
 	}
 
