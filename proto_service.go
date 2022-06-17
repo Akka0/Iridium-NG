@@ -19,7 +19,7 @@ func InitProto() {
 	packetIdFile, _ := ioutil.ReadFile("./data/packetIds.json")
 	err := json.Unmarshal(packetIdFile, &packetIdMap)
 	if err != nil {
-		log.Fatalln("Could not load ./data/packetIds.json")
+		log.Fatalln("Could not load ./data/packetIds.json", err)
 	}
 
 	for k, v := range packetIdMap {

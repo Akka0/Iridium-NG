@@ -134,7 +134,7 @@ func startSniffer() {
 		if pcapWriter != nil {
 			err := pcapWriter.WritePacket(packet.Metadata().CaptureInfo, packet.Data())
 			if err != nil {
-				log.Println("Could not write packet to pcap file")
+				log.Println("Could not write packet to pcap file", err)
 			}
 		}
 
@@ -187,10 +187,10 @@ func handleSpecialPacket(data []byte, fromServer bool, timestamp time.Time) {
 		buildPacketToSend(data, fromServer, timestamp, 0, "Hamdshanke pls.")
 		break
 	case 404:
-		buildPacketToSend(data, fromServer, timestamp, 0, `{ "text" : "Disconnected." }`)
+		buildPacketToSend(data, fromServer, timestamp, 0, "Disconnected.")
 		break
 	default:
-		buildPacketToSend(data, fromServer, timestamp, 0, `{ "text" : "Hamdshanke estamblished." }`)
+		buildPacketToSend(data, fromServer, timestamp, 0, "Hamdshanke estamblished.")
 		break
 	}
 }
